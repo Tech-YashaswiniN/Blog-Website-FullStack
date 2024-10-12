@@ -1,0 +1,30 @@
+<%layout("layouts/boilerplate.ejs") %>
+<body>
+<div class="formcontainer">
+<!-- <div class="row">
+    <div class="col-8 offset-2"> -->
+        <form action="/blogs/<%=blog.id %>?_method=PATCH" method="post">
+            <div class="mb-3">
+                <label for="content1" class="form-label">Edit the content one: </label>
+                <textarea name="content1" id="content1" cols="100" rows="30" class="form-control"><%=blog.content1 %></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="content2" class="form-label">Edit the content two: </label>
+                <textarea name="content2" id="content2" cols="100" rows="30" class="form-control"><%=blog.content2 %></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="content3" class="form-label">Edit the content three: </label>
+                <textarea name="content3" id="content3" cols="100" rows="30" class="form-control"><%=blog.content3 %></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="content4" class="form-label">Edit the content four: </label>
+                <textarea name="content4" id="content4" cols="100" rows="30" class="form-control" ><%=blog.content4 %></textarea>
+            </div>
+            <button class="btn editjs-btn">Edit</button>
+        </form>
+    <!-- </div>
+</div> -->
+</div>
+</body>
+
+

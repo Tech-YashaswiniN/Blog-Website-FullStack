@@ -1,0 +1,29 @@
+<%layout("layouts/boilerplate.ejs") -%>
+<body>
+        <div class="showContainer">
+            <div class="post">
+                <h1 class="title"><%=blog.title %></h1>
+                <span class="author"><%=blog.author %></span>
+                <span><%=blog.dateCreated.toString().split(" ")[4] %></span>
+                <span><%=blog.dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                <span class="tag"><%=blog.tag %></span>
+                <hr>
+                <img src="<%=blog.image %>" alt="img" class="image">
+                <h3 class="des"><%=blog.description %></h3>
+            </div>
+            <hr>
+            <div class="contentContainer">
+                <p><%=blog.content1%></p>
+                <p><%=blog.content2%></p>
+                <p><%=blog.content3%></p>
+                <p><%=blog.content4 %></p>
+            </div>
+        </div>
+    
+        <div class="btnContainer">
+            <a href="http://localhost:3001/blogs/<%=blog.id %>/edit" class="btn editbtn">Edit</a> &nbsp; &nbsp; &nbsp;
+            <form action="/blogs/<%=blog._id %>/?_method=DELETE" method="post">
+                <button class="btn">Delete</button>
+            </form>
+        </div>
+</body>

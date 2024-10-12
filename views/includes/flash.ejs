@@ -1,0 +1,16 @@
+<% if(success && success.length){%>
+    <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+        <%=success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<%} %>
+
+<% if(error && error.length){%>
+    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+        <%=error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<%} %>
+
+
+<!-- we we just say if(success)  it will not set the condition because , success is an array and empty array is excist so it will go into the condition, thats why we set the length too if the length is also excist then only flash message will visible -->

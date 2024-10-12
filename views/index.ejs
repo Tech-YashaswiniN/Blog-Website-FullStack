@@ -1,0 +1,38 @@
+<%layout("layouts/boilerplate.ejs") %>
+<body>
+
+        <% for(let blog of blogs) {%>
+            <div class="mainImg">
+                <%if(blog.image === "/mainimg.jpg"){%>
+                    <img src="<%=blog.image%>" class="mainImg" alt="img">
+                    <% break; %>
+                <% } %> 
+            </div>
+    
+        <% } %>
+        
+        <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 mt-3">
+            <% for(let blog of blogs) {%>
+                <%if(blog.image !== "/mainimg.jpg") {%>
+                    <div class="card col">
+                        <img src="<%=blog.image %>" class="card-img-top" alt="img" style="height:20rem">
+                        <div class="card-body">
+                            <h5 class="card-title"><%=blog.title %></h5>
+                            <p class="card-title"><%=blog.author %></p>
+                            <span><%=blog.dateCreated.toString().split(" ")[4] %></span>
+                            <span><%=blog.dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                            <p class="card-title"><%=blog.tag%></p>
+                            <p class="des card-text"><%=blog.description %></p>         
+                            <!-- <form action="/blogs/<%=blog.id%>?_method=DELETE" method="post">
+                                <button class="btn btn-primary">Delete</button>
+                            </form> -->
+                        </div>
+                    
+                        <a href="http://localhost:3001/blogs/<%=blog.id %>" class="btn" style="width:150px">See in detail</a>
+                    </div>
+                
+                <% } %>
+            
+            <% } %>
+        </div>
+</body>
