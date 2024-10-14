@@ -1,0 +1,26 @@
+<%layout("layouts/boilerplate.ejs") %>
+<% if (blogs.length > 8) { %>
+    <div class="row mt-3"> 
+      <% for (let i = 8; i < blogs.length; i++) { 
+        // Check if owner exists and then compare usernames
+        if (blogs[i].owner && blogs[i].owner.username && blogs[i].owner.username === CurrentUser.username) { 
+      %>
+        <a href="http://localhost:3001/blogs/<%= blogs[i]._id %>" class="blog-link">
+          <div class="card blog-card col">
+            <img src="<%= blogs[i].image %>" class="card-img-top" alt="img" style="height:20rem">
+            <div class="card-body">
+              <h5 class="card-title"><%= blogs[i].title %></h5>
+              <span><%= blogs[i].dateCreated.toString().split(" ")[4] %></span>
+              <span><%= blogs[i].dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+              <p class="card-title"><%= blogs[i].tag %></p>
+              <p class="des card-text"><%= blogs[i].description %></p>         
+            </div>
+          </div>
+        </a>
+      <% 
+        } // end if
+      } // end for
+      %>
+    </div>
+  <% } %>
+  

@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const Blog = require("./modles/blog.js")
 const port = 3001;
 const ejsMate = require("ejs-mate");
-const ExpressErrors = require("./middleware.js");
+const ExpressErrors = require("./middlewareExpressError.js");
 const asyncWrap = require("./utils/wrapAsync.js");
 const passport = require('passport');
 const LocalStrategy = require("passport-local");
@@ -74,6 +74,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.CurrentUser = req.user;
     next();
 })
 

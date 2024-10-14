@@ -49,6 +49,10 @@ const blogSchema = new mongoose.Schema({
     content4:{
         type:String,
     },
+    owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+    }
 })
 
 const Blog = mongoose.model("Blog",blogSchema);

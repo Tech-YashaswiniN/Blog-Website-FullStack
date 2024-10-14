@@ -3,27 +3,29 @@
         <div class="showContainer">
             <div class="post">
                 <h1 class="title"><%=blog.title %></h1>
-                <span class="author"><%=blog.author %></span>
-                <span><%=blog.dateCreated.toString().split(" ")[4] %></span>
-                <span><%=blog.dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
-                <span class="tag"><%=blog.tag %></span>
+                <span class="author">Author: <%=blog.owner.username %></span> &nbsp;&nbsp;
+                <span><%=blog.dateCreated.toString().split(" ")[4] %></span> &nbsp; &nbsp;
+                <span><%=blog.dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span> &nbsp;&nbsp;
+                <span class="tag"><%=blog.tag %></span> &nbsp; &nbsp;
                 <hr>
                 <img src="<%=blog.image %>" alt="img" class="image">
                 <h3 class="des"><%=blog.description %></h3>
             </div>
             <hr>
             <div class="contentContainer">
-                <p><%=blog.content1%></p>
-                <p><%=blog.content2%></p>
-                <p><%=blog.content3%></p>
-                <p><%=blog.content4 %></p>
+                <h5><%=blog.content1%></h5>
+                <h5><%=blog.content2%></h5>
+                <h5><%=blog.content3%></h5>
+                <h5><%=blog.content4 %></h5>
             </div>
         </div>
     
-        <div class="btnContainer">
-            <a href="http://localhost:3001/blogs/<%=blog.id %>/edit" class="btn editbtn">Edit</a> &nbsp; &nbsp; &nbsp;
-            <form action="/blogs/<%=blog._id %>/?_method=DELETE" method="post">
-                <button class="btn">Delete</button>
-            </form>
-        </div>
+        <%if(CurrentUser && CurrentUser._id.equals(blog.owner._id)){%>
+            <div class="btnContainer">
+                <a href="http://localhost:3001/blogs/<%=blog.id %>/edit" class="btn editbtn">Edit</a> &nbsp; &nbsp; &nbsp;
+                <form action="/blogs/<%=blog._id %>/?_method=DELETE" method="post">
+                    <button class="btn">Delete</button>
+                </form>
+            </div>
+        <%} %>
 </body>

@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const asyncWrap = require("../utils/wrapAsync.js");
 const Blog = require("../modles/blog.js")
-const ExpressErrors = require("../middleware.js");
+// const ExpressErrors = require("../middlewareExpressError.js");
+const {idLoggedIn} = require("../middleware.js");
 
 router.get('/',asyncWrap(async (req,res)=>{
     let blogs = await  Blog.find();
     res.render("index.ejs",{blogs});
 }));
 
-router.get('/new', (req,res)=>{
+router.get('/new',idLoggedIn, (req,res)=>{
 // throw new ExpressErrors(404,"Pae not found")
 res.render("new.ejs")
 })
@@ -20,24 +21,35 @@ if(!req.body.blog){
     next(new ExpressErrors(400,"Please enter valid blogList"))
 }
 const newblog = new Blog(bloglists);
+newblog.owner = req.user._id;
 await newblog.save();
 req.flash("success","New blog created");
 res.redirect("/blogs");
 }));
 
+router.get('/myblogs',asyncWrap(async(req,res)=>{
+    let blogs = await Blog.find().populate("owner");
+    if(!blogs.owner.username == CurrentUser.username){
+        req.flash("error","You dont have any blogs!");
+        res.redirect('/blogs')
+    }
+    res.render('myblogs.ejs',{blogs});
+}))
+
 router.get('/:id', asyncWrap(async (req,res,next)=>{
 
     let{id}=req.params;
-    let blog = await Blog.findById(id);
+    let blog = await Blog.findById(id).populate("owner");
     if(!blog){
         req.flash("error","Blog you are looking for is not exist!");
         res.redirect('/blogs');
     }
+    console.log(blog)
 res.render("show.ejs",{blog})
 }));
 
 
-router.get('/:id/edit',asyncWrap(async (req,res)=>{
+router.get('/:id/edit',idLoggedIn, asyncWrap(async (req,res)=>{
 
     let{id}=req.params;
     let blog = await Blog.findByIdAndUpdate(id);
@@ -49,7 +61,7 @@ router.get('/:id/edit',asyncWrap(async (req,res)=>{
 }));
 
 
-router.patch('/:id', asyncWrap(async (req,res)=>{
+router.patch('/:id',idLoggedIn, asyncWrap(async (req,res)=>{
 
     let{id}=req.params;
 
@@ -60,7 +72,7 @@ router.patch('/:id', asyncWrap(async (req,res)=>{
 
 }));
 
-router.delete('/:id',asyncWrap(async (req,res)=>{
+router.delete('/:id',idLoggedIn, asyncWrap(async (req,res)=>{
     let{id}=req.params;
     let deletedBlog = await Blog.findByIdAndDelete(id);
     // console.log(deletedBlog);

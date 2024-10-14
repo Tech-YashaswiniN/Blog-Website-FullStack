@@ -1,38 +1,197 @@
 <%layout("layouts/boilerplate.ejs") %>
 <body>
-
-        <% for(let blog of blogs) {%>
-            <div class="mainImg">
-                <%if(blog.image === "/mainimg.jpg"){%>
-                    <img src="<%=blog.image%>" class="mainImg" alt="img">
-                    <% break; %>
-                <% } %> 
-            </div>
-    
-        <% } %>
-        
-        <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 mt-3">
-            <% for(let blog of blogs) {%>
-                <%if(blog.image !== "/mainimg.jpg") {%>
-                    <div class="card col">
-                        <img src="<%=blog.image %>" class="card-img-top" alt="img" style="height:20rem">
-                        <div class="card-body">
-                            <h5 class="card-title"><%=blog.title %></h5>
-                            <p class="card-title"><%=blog.author %></p>
-                            <span><%=blog.dateCreated.toString().split(" ")[4] %></span>
-                            <span><%=blog.dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
-                            <p class="card-title"><%=blog.tag%></p>
-                            <p class="des card-text"><%=blog.description %></p>         
-                            <!-- <form action="/blogs/<%=blog.id%>?_method=DELETE" method="post">
-                                <button class="btn btn-primary">Delete</button>
-                            </form> -->
-                        </div>
-                    
-                        <a href="http://localhost:3001/blogs/<%=blog.id %>" class="btn" style="width:150px">See in detail</a>
-                    </div>
-                
-                <% } %>
-            
-            <% } %>
+    <!-- <img src="/mainimg.jpg" alt="img" class="top-img"> -->
+    <div id="carouselExampleCaptions" class="carousel slide carousel-fade ">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../img17.png" class="d-block w-100 " alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>First slide label</h5>
+              <p>Some representative placeholder content for the first slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="../img11.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Second slide label</h5>
+              <p>Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="../img7.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Third slide label</h5>
+              <p>Some representative placeholder content for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+
+        <!-- <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3"> -->
+            <!-- <% for(let blog of blogs) {%>
+                   <a href="http://localhost:3001/blogs/<%=blog.id %>" class="blog-link">
+                        <div class="card blog-card col">
+                            <img src="<%=blog.image %>" class="card-img-top" alt="img" style="height:20rem">
+                            <div class="card-img-overlay"></div>
+
+                            <div class="card-body">
+                                <h5 class="card-title"><%=blog.title %></h5>
+                                
+                                <span><%=blog.dateCreated.toString().split(" ")[4] %></span>
+                                <span><%=blog.dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                                <p class="card-title"><%=blog.tag%></p>
+                                <p class="des card-text"><%=blog.description %></p>          -->
+                                <!-- <form action="/blogs/<%=blog.id%>?_method=DELETE" method="post">
+                                    <button class="btn btn-primary">Delete</button>
+                                </form> -->
+                            <!-- </div>
+                    
+                        </div>
+                   </a>
+            
+            <% } %> -->
+        <!-- </div> -->
+
+        <div class="row mt-3 ">
+          <% for(let i=0; i<3 ; i++) {%>
+            <a href="http://localhost:3001/blogs/<%=blogs[i].id %>" class="blog-link">
+              <div class="card blog-card col">
+                  <img src="<%=blogs[i].image %>" class="card-img-top" alt="img" style="height:20rem">
+                  <div class="card-img-overlay"></div>
+
+                  <div class="card-body">
+                      <h5 class="card-title"><%=blogs.title %></h5>
+                      
+                      <span><%=blogs[i].dateCreated.toString().split(" ")[4] %></span>
+                      <span><%=blogs[i].dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                      <p class="card-title"><%=blogs[i].tag%></p>
+                      <p class="des card-text"><%=blogs[i].description %></p>         
+                      <!-- <form action="/blogs/<%=blogs[i].id%>?_method=DELETE" method="post">
+                          <button class="btn btn-primary">Delete</button>
+                      </form> -->
+                  </div>
+          
+              </div>
+         </a>
+          <% } %>
+        </div>
+
+        <div class="row  section2-img-container mt-2 ">
+              <h1 class="mt-5" >LATEST NEWS</h1>
+              <div class="right-img">
+                <a href="http://localhost:3001/blogs/<%=blogs[7].id %>" class="blog-link">
+                  <div class="card blog-card col">
+                      <img src="<%=blogs[7].image %>" class="card-img-top" alt="img">
+                      <div class="card-img-overlay"></div>
+    
+                      <div class="card-body">
+                          <h5 class="card-title"><%=blogs.title %></h5>
+                          
+                          <span><%=blogs[7].dateCreated.toString().split(" ")[4] %></span>
+                          <span><%=blogs[7].dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                          <p class="card-title"><%=blogs[7].tag%></p>
+                          <p class="des card-text"><%=blogs[7].description %></p>         
+                          <!-- <form action="/blogs/<%=blogs[7].id%>?_method=DELETE" method="post">
+                              <button class="btn btn-primary">Delete</button>
+                          </form> -->
+                      </div>
+              
+                  </div>
+             </a>
+              </div>
+
+              <div class="left-images">
+                <div class="box">
+                  <%for(let i=3; i<5; i++){%>
+                    <a href="http://localhost:3001/blogs/<%=blogs[i].id %>" class="blog-link">
+                      <div class="card blog-card col">
+                          <img src="<%=blogs[i].image %>" class="card-img-top" alt="img">
+                          <div class="card-img-overlay"></div>
+        
+                          <div class="card-body">
+                              <h5 class="card-title"><%=blogs.title %></h5>
+                              
+                              <span><%=blogs[i].dateCreated.toString().split(" ")[4] %></span>
+                              <span><%=blogs[i].dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                              <p class="card-title"><%=blogs[i].tag%></p>
+                              <p class="des card-text"><%=blogs[i].description %></p>         
+                              <!-- <form action="/blogs/<%=blogs[i].id%>?_method=DELETE" method="post">
+                                  <button class="btn btn-primary">Delete</button>
+                              </form> -->
+                          </div>
+                  
+                      </div>
+                 </a>
+                  <% } %>
+                </div>
+
+                <div class="box">
+                  <%for(let i=5; i<7; i++){%>
+                    <a href="http://localhost:3001/blogs/<%=blogs[i].id %>" class="blog-link">
+                      <div class="card blog-card col">
+                          <img src="<%=blogs[i].image %>" class="card-img-top" alt="img">
+                          <div class="card-img-overlay"></div>
+        
+                          <div class="card-body">
+                              <h5 class="card-title"><%=blogs.title %></h5>
+                              
+                              <span><%=blogs[i].dateCreated.toString().split(" ")[4] %></span>
+                              <span><%=blogs[i].dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                              <p class="card-title"><%=blogs[i].tag%></p>
+                              <p class="des card-text"><%=blogs[i].description %></p>         
+                              <!-- <form action="/blogs/<%=blogs[i].id%>?_method=DELETE" method="post">
+                                  <button class="btn btn-primary">Delete</button>
+                              </form> -->
+                          </div>
+                  
+                      </div>
+                 </a>
+                  <% } %>
+                </div>
+            </div>
+
+        </div>
+
+        <% if(blogs.length > 8){%>
+          <div class="row mt-3 ">
+            <% for(let i=8; i<blogs.length ; i++) {%>
+              <a href="http://localhost:3001/blogs/<%=blogs[i].id %>" class="blog-link">
+                <div class="card blog-card col">
+                    <img src="<%=blogs[i].image %>" class="card-img-top" alt="img" style="height:20rem">
+                    <div class="card-img-overlay"></div>
+  
+                    <div class="card-body">
+                        <h5 class="card-title"><%=blogs.title %></h5>
+                        
+                        <span><%=blogs[i].dateCreated.toString().split(" ")[4] %></span>
+                        <span><%=blogs[i].dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                        <p class="card-title"><%=blogs[i].tag%></p>
+                        <p class="des card-text"><%=blogs[i].description %></p>         
+                        <!-- <form action="/blogs/<%=blogs[i].id%>?_method=DELETE" method="post">
+                            <button class="btn btn-primary">Delete</button>
+                        </form> -->
+                    </div>
+            
+                </div>
+           </a>
+            <% } %>
+          </div>
+        <% } %>
+
+
+
 </body>

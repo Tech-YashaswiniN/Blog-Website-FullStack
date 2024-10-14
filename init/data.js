@@ -1,7 +1,4 @@
 let posts = [
-    { 
-        image:"/mainimg.jpg",
-    },
     {
         title: "Augmented Reality ",
         author: "Alice Johnson",
