@@ -1,5 +1,7 @@
-<%layout("layouts/boilerplate.ejs") %>
-<% if (blogs.length > 8) { %>
+<% layout("layouts/boilerplate.ejs") %>
+<h1 class="my-blogs-title">MY BLOGS</h1>
+<hr class="hr">
+<% if (Array.isArray(blogs) && blogs.length > 8) { %>
     <div class="row mt-3"> 
       <% for (let i = 8; i < blogs.length; i++) { 
         // Check if owner exists and then compare usernames
@@ -22,5 +24,6 @@
       } // end for
       %>
     </div>
-  <% } %>
-  
+<% } else { %>
+    <p>No blogs available or less than 9 blogs to display.</p>
+<% } %>

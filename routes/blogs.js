@@ -27,14 +27,20 @@ req.flash("success","New blog created");
 res.redirect("/blogs");
 }));
 
-router.get('/myblogs',asyncWrap(async(req,res)=>{
+router.get('/myblogs', idLoggedIn, asyncWrap(async (req, res) => {
     let blogs = await Blog.find().populate("owner");
-    if(!blogs.owner.username == CurrentUser.username){
-        req.flash("error","You dont have any blogs!");
-        res.redirect('/blogs')
+    
+    // Check if there are any blogs belonging to the current user
+    const userBlogs = blogs.filter(blog => blog.owner && blog.owner._id.equals(req.user._id));
+
+    if (userBlogs.length === 0) {
+        req.flash("error", "You don't have any blogs!");
+        return res.redirect('/blogs');
     }
-    res.render('myblogs.ejs',{blogs});
-}))
+
+    res.render('myblogs.ejs', { blogs: userBlogs, CurrentUser: req.user }); // Pass CurrentUser to the template
+}));
+
 
 router.get('/:id', asyncWrap(async (req,res,next)=>{
 
