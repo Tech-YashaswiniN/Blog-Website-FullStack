@@ -1,9 +1,9 @@
 <% layout("layouts/boilerplate.ejs") %>
 <h1 class="my-blogs-title">MY BLOGS</h1>
 <hr class="hr">
-<% if (Array.isArray(blogs) && blogs.length > 8) { %>
+   <% if (Array.isArray(blogs) && blogs.length > 0) { %> 
     <div class="row mt-3"> 
-      <% for (let i = 8; i < blogs.length; i++) { 
+      <% for (let i = 0; i < blogs.length; i++) { 
         // Check if owner exists and then compare usernames
         if (blogs[i].owner && blogs[i].owner.username && blogs[i].owner.username === CurrentUser.username) { 
       %>

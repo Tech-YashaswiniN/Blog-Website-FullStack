@@ -1,8 +1,14 @@
+// if(process.env.NODE_ENV != "production"){
+//     require('dotenv').config();
+// }
+
+
 const express = require("express");
 const app = express();
 const path= require("path");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
+const MongoStore = require('connect-mongo');
 const Blog = require("./modles/blog.js")
 const port = 3001;
 const ejsMate = require("ejs-mate");
@@ -17,6 +23,11 @@ const User = require('./modles/user.js');
 const blogsRouter = require('./routes/blogs.js');
 const userRouter = require('./routes/user.js');
 
+// const dbUrl = process.env.ATLASDB_URL;
+
+
+// const dburl = process.env.ATLASDB_URL;
+const ATLASDB_URL = "mongodb+srv://webdesigningyt:BeEwIG0IQzPfBZZy@cluster0.uoglo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 main()
 .then(()=>{
     console.log("Conncetion successful")
@@ -26,8 +37,19 @@ main()
 })
 
 async function main(){
-    await mongoose.connect("mongodb://127.0.0.1:27017/Blog");
+    await mongoose.connect(ATLASDB_URL);
 }
+
+module.exports = ATLASDB_URL;
+
+const store = MongoStore.create({
+    mongoUrl:ATLASDB_URL,
+    touchAfter:24*3600,//Interval (in seconds) between session updates
+})
+
+store.on("error",()=>{
+    console.log("ERROR in MONGO SESSION STORE", error);
+})
 
 
 app.use(methodOverride("_method"));
