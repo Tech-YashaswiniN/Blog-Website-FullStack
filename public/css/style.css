@@ -52,6 +52,12 @@ body{
     color: white;
 }
 
+/* edit */
+.updatebtn, .createbtn{
+    background-color: seagreen;
+    color: white;
+}
+
 
 /* mainImage */
 .mainImg{

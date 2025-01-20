@@ -7,7 +7,7 @@
         // Check if owner exists and then compare usernames
         if (blogs[i].owner && blogs[i].owner.username && blogs[i].owner.username === CurrentUser.username) { 
       %>
-        <a href="http://localhost:3001/blogs/<%= blogs[i]._id %>" class="blog-link">
+        <a href="/blogs/<%= blogs[i]._id %>" class="blog-link">
           <div class="card blog-card col">
             <img src="<%= blogs[i].image %>" class="card-img-top" alt="img" style="height:20rem">
             <div class="card-body">
