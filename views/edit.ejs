@@ -1,30 +1,64 @@
-<%layout("layouts/boilerplate.ejs") %>
-<body>
+<% layout("layouts/boilerplate.ejs") %>
 <div class="formcontainer">
-<!-- <div class="row">
-    <div class="col-8 offset-2"> -->
-        <form action="/blogs/<%=blog.id %>?_method=PATCH" method="post">
-            <div class="mb-3">
-                <label for="content1" class="form-label">Edit the content one: </label>
-                <textarea name="content1" id="content1" cols="100" rows="30" class="form-control"><%=blog.content1 %></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="content2" class="form-label">Edit the content two: </label>
-                <textarea name="content2" id="content2" cols="100" rows="30" class="form-control"><%=blog.content2 %></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="content3" class="form-label">Edit the content three: </label>
-                <textarea name="content3" id="content3" cols="100" rows="30" class="form-control"><%=blog.content3 %></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="content4" class="form-label">Edit the content four: </label>
-                <textarea name="content4" id="content4" cols="100" rows="30" class="form-control" ><%=blog.content4 %></textarea>
-            </div>
-            <button class="btn editjs-btn">Edit</button>
-        </form>
-    <!-- </div>
-</div> -->
+    <form action="/blogs/<%= blog._id %>?_method=PATCH" method="post" id="form" novalidate class="needs-validation">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title: </label>
+            <input type="text" name="blog[title]" id="title" placeholder="Enter" class="form-control" required value="<%= blog.title %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="author" class="form-label">Author: </label>
+            <input type="text" name="blog[author]" id="author" placeholder="author.." class="form-control" required value="<%= blog.author %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="tag" class="form-label">Tags: </label>
+            <input type="text" name="blog[tag]" id="tag" placeholder="tags about the blog.." class="form-control" required value="<%= blog.tag %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Enter the Url for the image: </label>
+            <input type="text" name="blog[image]" id="image" placeholder="Enter the url of the image....." class="form-control" value="<%= blog.image %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Describe your Blog in one line: </label> 
+            <textarea name="blog[description]" id="description" cols="40" rows="10" placeholder="One line description about your Project" class="form-control" required><%= blog.description %></textarea>
+        </div>     
+
+        <!-- Single Quill editor for the entire blog content -->
+        <div class="mb-3">
+            <label for="content1" class="form-label">Enter your full blog content: </label><br><br>
+            <div id="editor" class="editor"></div>
+            <textarea name="blog[content1]" id="content1" style="display: none;"></textarea> <!-- hidden textarea for form submission -->
+        </div>
+
+        <button class="btn" type="submit">Update</button>
+    </form>
 </div>
-</body>
 
+<!-- Quill Editor Initialization -->
+<script>
+    // Initialize Quill editor for the entire blog content
+    var quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Write your full blog content here...',
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline'],
+                ['link'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                [{ 'align': [] }],
+                [{ 'header': '1' }, { 'header': '2' }]
+            ]
+        }
+    });
 
+    // Set the existing content for the editor from the server-side `blog.content1`
+    quill.root.innerHTML = "<%- blog.content1 %>";
+
+    // Attach content to the hidden textarea before submission
+    document.getElementById("form").onsubmit = function() {
+        document.getElementById("content1").value = quill.root.innerHTML;
+    };
+</script>

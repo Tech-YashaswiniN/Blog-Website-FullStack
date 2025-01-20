@@ -1,6 +1,6 @@
-// if(process.env.NODE_ENV != "production"){
-//     require('dotenv').config();
-// }
+if(process.env.NODE_ENV != "production"){
+    require('dotenv').config();
+}
 
 
 const express = require("express");
@@ -26,8 +26,8 @@ const userRouter = require('./routes/user.js');
 // const dbUrl = process.env.ATLASDB_URL;
 
 
-// const dburl = process.env.ATLASDB_URL;
-const ATLASDB_URL = "mongodb+srv://webdesigningyt:BeEwIG0IQzPfBZZy@cluster0.uoglo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const dburl = process.env.ATLASDB_URL;
+// const ATLASDB_URL = "mongodb+srv://webdesigningyt:BeEwIG0IQzPfBZZy@cluster0.uoglo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 main()
 .then(()=>{
     console.log("Conncetion successful")
@@ -37,13 +37,13 @@ main()
 })
 
 async function main(){
-    await mongoose.connect(ATLASDB_URL);
+    await mongoose.connect(dburl);
 }
 
-module.exports = ATLASDB_URL;
+module.exports = dburl;
 
 const store = MongoStore.create({
-    mongoUrl:ATLASDB_URL,
+    mongoUrl:dburl,
     touchAfter:24*3600,//Interval (in seconds) between session updates
 })
 
@@ -112,6 +112,10 @@ app.use((req,res,next)=>{
 // })
 
 // routing applied here
+
+app.get('/', (req, res) => {
+    res.redirect("/signup")
+})
 
 app.use('/blogs',blogsRouter);
 app.use('/',userRouter);

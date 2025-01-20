@@ -1,0 +1,27 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+
+    <!-- Search Results -->
+    <% if (blogs.length > 0) { %>
+        <div class="row mt-3">
+            <% blogs.forEach(blog => { %>
+                <a href="http://localhost:3001/blogs/<%= blog.id %>" class="blog-link">
+                    <div class="card blog-card col">
+                        <img src="<%= blog.image %>" class="card-img-top" alt="img" style="height:20rem">
+                        <div class="card-img-overlay"></div>
+
+                        <div class="card-body">
+                            <h5 class="card-title"><%= blog.title %></h5>
+                            <span><%= blog.dateCreated.toString().split(" ")[4] %></span>
+                            <span><%= blog.dateCreated.toString().split(" ").splice(0, 4).join(" ") %></span>
+                            <p class="card-title"><%= blog.tag %></p>
+                            <p class="des card-text"><%= blog.description %></p>
+                        </div>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>No results found for "<%= searchQuery %>"</p>
+    <% } %>
+
